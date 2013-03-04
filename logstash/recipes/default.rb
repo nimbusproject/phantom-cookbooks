@@ -59,6 +59,6 @@ execute "Run logstash" do
   })
   command <<-EOH
   ps aux | grep logstash | grep java | grep agent | awk '{ print $2 }' | xargs kill
-  nohup java -jar #{logstash_jar} agent -f logstash.conf &"
+  nohup java -jar #{logstash_jar} agent -f logstash.conf &
   EOH
 end
