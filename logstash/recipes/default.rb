@@ -57,5 +57,8 @@ execute "Run logstash" do
     'METRICS_USERNAME' => node[:logstash][:metrics_username],
     'METRICS_PASSWORD' => node[:logstash][:metrics_password]
   })
-  command "nohup java -jar #{logstash_jar} agent -f logstash.conf &"
+  command <<-EOH
+  ps aux | grep logstash | grep java | grep agent | awk '{ print $2 }' | xargs kill
+  nohup java -jar #{logstash_jar} agent -f logstash.conf &"
+  EOH
 end
