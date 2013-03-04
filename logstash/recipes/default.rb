@@ -58,7 +58,10 @@ execute "Run logstash" do
     'METRICS_PASSWORD' => node[:logstash][:metrics_password]
   })
   command <<-EOH
-  ps aux | grep logstash | grep java | grep agent | awk '{ print $2 }' | xargs kill
+  PID=`ps aux | grep -v grep | grep logstash | grep java | grep agent | awk '{ print $2 }'`
+  if ! [ "x$PID" == "x" ]; then
+    kill $PID
+  fi
   nohup java -jar #{logstash_jar} agent -f logstash.conf &
   EOH
 end
