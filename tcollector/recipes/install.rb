@@ -9,6 +9,10 @@ end
 
 bash "Start tcollector" do
   code <<-EOH
-  #{tcollector_path}/tcollector.py --host #{node[:tcollector][:tsd_host]} --port #{node[:tcollector][:tsd_port]} --logfile #{node[:tcollector][:logfile]} &
+  if [ -f /var/run/tcollector.pid ]; then
+    kill `cat /var/run/tcollector.pid`
+    sleep 10
+  fi
+  #{tcollector_path}/tcollector.py --host #{node[:tcollector][:tsd_host]} --port #{node[:tcollector][:tsd_port]} --logfile #{node[:tcollector][:logfile]} -D
   EOH
 end
