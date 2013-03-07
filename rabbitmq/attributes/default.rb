@@ -11,6 +11,7 @@ default[:rabbitmq][:cluster] = "no"
 default[:rabbitmq][:cluster_config] = "/etc/rabbitmq/rabbitmq_cluster.config"
 default[:rabbitmq][:cluster_disk_nodes] = []
 default[:rabbitmq][:users] = {}
+default[:rabbitmq][:apt_repo] = "deb http://www.rabbitmq.com/debian/ testing main"
 
 #ssl
 default[:rabbitmq][:ssl] = false

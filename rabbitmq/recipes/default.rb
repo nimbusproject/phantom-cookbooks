@@ -1,3 +1,22 @@
+case node[:platform]
+when "debian"
+  bash "enable rabbit apt repo" do
+    user "root"
+    code <<-EOH
+    echo '#{node[:rabbitmq][:apt_repo]}' >> /etc/apt/sources.list.d/rabbit.list
+    wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+    apt-key add rabbitmq-signing-key-public.asc
+    EOH
+    not_if "grep '#{node[:rabbitmq][:apt_repo]}' /etc/apt/sources.list.d/rabbit.list"
+  end
+
+  execute "force update apt" do
+      command "apt-get update"
+      action :run
+  end
+
+end
+
 package "rabbitmq-server" do
   action :install
 end
