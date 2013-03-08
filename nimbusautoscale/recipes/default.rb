@@ -81,7 +81,7 @@ if install_method == "py_venv_offline_setup"
      environment({
        "HOME" => "/home/#{node[:username]}"
      })
-    command "env >/tmp/env ; pip install -r ./Phantom/requirements.txt --index-url=file://`pwd`/packages/simple/ ./Phantom"
+    command "env >/tmp/env ; pip install -r ./Phantom/requirements.txt --find-links=file://`pwd`/packages/simple/ ./Phantom"
   end
   execute "install-supervisor" do
     cwd src_dir
@@ -90,7 +90,7 @@ if install_method == "py_venv_offline_setup"
      environment({
        "HOME" => "/home/#{node[:username]}"
      })
-    command "pip install --index-url=file://`pwd`/packages/simple supervisor"
+    command "pip install --find-links=file://`pwd`/packages/simple supervisor"
   end
 else
   execute "run install" do

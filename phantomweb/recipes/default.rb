@@ -75,19 +75,13 @@ else
 end
 
 if install_method == "py_venv_offline_setup"
-  execute "Install newer pip" do
-    # The version of pip included in python-pip on our VM doesn't work with
-    # package directories created by pip2pi
-    command "pip install pip"
-  end
-
   execute "run install" do
     cwd app_dir
-    command "env >/tmp/env ; pip install -r requirements.txt --index-url=file://#{unpack_dir}/packages/simple/ .#{extras}"
+    command "env >/tmp/env ; pip install -r requirements.txt --find-links=file://#{unpack_dir}/packages/simple/ .#{extras}"
   end
   execute "install-supervisor" do
     cwd app_dir
-    command "pip install --index-url=file://#{unpack_dir}/packages/simple supervisor"
+    command "pip install --find-links=file://#{unpack_dir}/packages/simple supervisor"
   end
 else
   execute "run install" do
