@@ -2,10 +2,12 @@
   port: 8125,
   debug: true,
   dumpMessages: true,
-  flushInterval: 60000,
+  flushInterval: 10000,
   librato: {
     email: "<%= @librato_email %>",
-    token: "<%= @librato_token %>"
+    token: "<%= @librato_token %>",
+    source: "<%= @hostname %>",
+    skipInternalMetrics: true
   },
   backends: ["statsd-librato-backend"]
 }

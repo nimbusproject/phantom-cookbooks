@@ -32,7 +32,8 @@ template "/home/#{node[:statsd][:username]}/config.js" do
   mode 0600
   variables(
     :librato_email => node[:statsd][:librato_email],
-    :librato_token => node[:statsd][:librato_token]
+    :librato_token => node[:statsd][:librato_token],
+    :hostname => node[:hostname]
   )
 end
 
