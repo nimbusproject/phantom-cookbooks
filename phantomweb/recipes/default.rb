@@ -77,11 +77,11 @@ end
 if install_method == "py_venv_offline_setup"
   execute "run install" do
     cwd app_dir
-    command "env >/tmp/env ; pip install -r requirements.txt --find-links=file://#{unpack_dir}/packages/simple/ .#{extras}"
+    command "env >/tmp/env ; pip install -r requirements.txt --no-index --find-links=file://#{unpack_dir}/packages/ .#{extras}"
   end
   execute "install-supervisor" do
     cwd app_dir
-    command "pip install --find-links=file://#{unpack_dir}/packages/simple supervisor"
+    command "pip install --no-index --find-links=file://#{unpack_dir}/packages/ supervisor"
   end
 else
   execute "run install" do
