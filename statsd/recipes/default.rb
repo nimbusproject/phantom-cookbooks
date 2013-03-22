@@ -17,38 +17,40 @@
 # limitations under the License.
 #
 
-user node[:statsd][:username] do
-  comment "Dynamically created user."
-  gid "#{node[:statsd][:groupname]}"
-  home "/home/#{node[:statsd][:username]}"
-  shell "/bin/bash"
-  supports :manage_home => true
-end
+if node[:statsd][:librato_email] != '' and node[:statsd][:librato_token] != ''
+  user node[:statsd][:username] do
+    comment "Dynamically created user."
+    gid "#{node[:statsd][:groupname]}"
+    home "/home/#{node[:statsd][:username]}"
+    shell "/bin/bash"
+    supports :manage_home => true
+  end
 
-template "/home/#{node[:statsd][:username]}/config.js" do
-  source "config.js.erb"
-  owner node[:statsd][:username]
-  group node[:statsd][:groupname]
-  mode 0600
-  variables(
-    :librato_email => node[:statsd][:librato_email],
-    :librato_token => node[:statsd][:librato_token],
-    :hostname => node[:hostname]
-  )
-end
+  template "/home/#{node[:statsd][:username]}/config.js" do
+    source "config.js.erb"
+    owner node[:statsd][:username]
+    group node[:statsd][:groupname]
+    mode 0600
+    variables(
+      :librato_email => node[:statsd][:librato_email],
+      :librato_token => node[:statsd][:librato_token],
+      :hostname => node[:hostname]
+    )
+  end
 
-execute "Run statsd" do
-  user node[:statsd][:username]
-  group node[:statsd][:groupname]
-  cwd "/home/#{node[:statsd][:username]}"
-  environment({
-    'HOME' => "/home/#{node[:statsd][:username]}"
-  })
-  command <<-EOH
-  PID=`ps aux | grep -v grep | grep node | grep statsd | awk '{ print $2 }'`
-  if ! [ "x$PID" == "x" ]; then
-    kill $PID
-  fi
-  nohup node /usr/local/lib/node_modules/statsd/stats.js $HOME/config.js >> $HOME/statsd.log 2>&1 &
-  EOH
+  execute "Run statsd" do
+    user node[:statsd][:username]
+    group node[:statsd][:groupname]
+    cwd "/home/#{node[:statsd][:username]}"
+    environment({
+      'HOME' => "/home/#{node[:statsd][:username]}"
+    })
+    command <<-EOH
+    PID=`ps aux | grep -v grep | grep node | grep statsd | awk '{ print $2 }'`
+    if ! [ "x$PID" == "x" ]; then
+      kill $PID
+    fi
+    nohup node /usr/local/lib/node_modules/statsd/stats.js $HOME/config.js >> $HOME/statsd.log 2>&1 &
+    EOH
+  end
 end
