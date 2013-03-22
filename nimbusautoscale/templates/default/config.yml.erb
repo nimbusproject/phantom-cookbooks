@@ -11,6 +11,12 @@ phantom:
         type: sqldb
         dburl: <%= node[:autoscale][:dburl] %>
 
+<% if node[:autoscale][:statsd][:host] %>
+statsd:
+  host: <%= node[:autoscale][:statsd][:host] %>
+  port: <%= node[:autoscale][:statsd][:port] %>
+<% end %>
+
 logging:
   version: 1
   formatters:
