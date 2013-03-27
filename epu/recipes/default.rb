@@ -165,7 +165,7 @@ require 'yaml'
          environment({
            "HOME" => "/home/#{node[app][:username]}"
          })
-        command "env >/tmp/env ; pip install -r ./#{app}/requirements.txt --find-links=file://`pwd`/packages/simple/ ./#{app}"
+        command "env >/tmp/env ; pip install -r ./#{app}/requirements.txt --no-index --find-links=file://`pwd`/packages/ --upgrade ./#{app}"
       end
       if not extras.nil?
         execute "install extras" do
@@ -182,7 +182,7 @@ require 'yaml'
          environment({
            "HOME" => "/home/#{node[app][:username]}"
          })
-        command "pip install --find-links=file://`pwd`/packages/simple supervisor"
+        command "pip install --no-index --find-links=file://`pwd`/packages/ supervisor"
       end
     when "py_venv_buildout"
       execute "bootstrap buildout" do
