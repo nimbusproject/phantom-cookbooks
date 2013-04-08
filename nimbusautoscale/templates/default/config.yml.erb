@@ -7,6 +7,8 @@ phantom:
         rabbit_user: <%= node[:autoscale][:rabbit_username] %>
         rabbit_pw: <%= node[:autoscale][:rabbit_password] %>
         rabbit_exchange: <%= node[:autoscale][:rabbit_exchange] %>
+        opentsdb_host: <%= node[:autoscale][:opentsdb][:host] %>
+        opentsdb_port: <%= node[:autoscale][:opentsdb][:port] %>
     authz:
         type: sqldb
         dburl: <%= node[:autoscale][:dburl] %>
