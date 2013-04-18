@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source <%= "#{node[:opentsdbproxy][:virtualenv][:path]}/bin/activate" =%>
+
+exec opentsdb-proxy --backend django_authz --django-project-path <%= node[:opentsdbproxy][:django_project_path] =%> --django-settings-module <%= node[:opentsdbproxy][:django_settings_module] =%> --port <%= node[:opentsdbproxy][:port] =%> --ssl-cert server.crt --ssl-key server.key --opentsdb-host <%= node[:opentsdbproxy][:opentsdb_host] =%> --opentsdb-port <%= node[:opentsdbproxy][:opentsdb_port] =%>
