@@ -52,6 +52,20 @@ end
 exe = File.join(app_dir, "phantomweb/settings.py")
 template exe do
     source "settings.py.erb"
+    variables({
+      :logging => true
+    })
+    owner node[:username]
+    group node[:groupname]
+    mode 0755
+end
+
+exe = File.join(app_dir, "phantomweb/settings_nologging.py")
+template exe do
+    source "settings.py.erb"
+    variables({
+      :logging => false
+    })
     owner node[:username]
     group node[:groupname]
     mode 0755
