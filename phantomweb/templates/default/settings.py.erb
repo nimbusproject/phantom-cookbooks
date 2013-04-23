@@ -169,6 +169,15 @@ LOGGING = {
         },
     },
     'handlers': {
+    <% if ! node[:phantomweb][:exceptional_api_key].nil? and node[:phantomweb][:exceptional_api_key] != "" -%>
+        'exceptional': {
+            'append_log_messages': True,
+            'class': 'exceptional.ExceptionalLogHandler',
+            'level': 'ERROR',
+            'api_key': '<%= node[:phantomweb][:exceptional_api_key] =%>',
+            'environment': False
+        },
+        <% end -%>
         'default': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
@@ -205,6 +214,9 @@ LOGGING = {
 
         'phantomweb.general': {               # define another logger
             'handlers': [
+            <% if ! node[:phantomweb][:exceptional_api_key].nil? and node[:phantomweb][:exceptional_api_key] != "" -%>
+                'exceptional',
+                <% end -%>
                 'file_general'
             ],  # associate a different handler
             'level': 'DEBUG',                 # specify the logging level

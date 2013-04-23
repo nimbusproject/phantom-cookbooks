@@ -88,6 +88,7 @@ else
   extras = ""
 end
 
+
 if install_method == "py_venv_offline_setup"
   execute "run install" do
     cwd app_dir
@@ -96,6 +97,11 @@ if install_method == "py_venv_offline_setup"
   execute "install-supervisor" do
     cwd app_dir
     command "pip install --no-index --find-links=file://#{unpack_dir}/packages/ supervisor"
+  end
+  execute "install-exceptional" do
+    cwd app_dir
+    command "pip install --no-index --find-links=file://#{unpack_dir}/packages/ exceptional-python"
+    not_if { node[:phantomweb][:exceptional_api_key].nil? or node[:phantomweb][:exceptional_api_key] == "" }
   end
 else
   execute "run install" do
