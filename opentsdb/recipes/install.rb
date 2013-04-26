@@ -8,7 +8,7 @@ end
 script "Extract OpenTSDB" do
   interpreter "bash"
   code <<-EOH
-  git clone #{node[:opentsdb][:git_url]} opentsdb
+  git clone #{node[:opentsdb][:git_url]} opentsdb --depth 1
   EOH
   cwd "/opt"
 end
@@ -51,6 +51,6 @@ end
 
 bash "Start TSD" do
   code <<-EOH
-  tsdb tsd --port=#{node[:opentsdb][:port]} --staticroot=/usr/local/share/opentsdb/static --cachedir=#{node[:opentsdb][:cachedir] --auto-metric &
+  tsdb tsd --port=#{node[:opentsdb][:port]} --staticroot=/usr/local/share/opentsdb/static --cachedir=#{node[:opentsdb][:cachedir]} --auto-metric &
   EOH
 end
