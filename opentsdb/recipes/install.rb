@@ -36,7 +36,7 @@ execute "Create HBase Tables" do
   environment ({'COMPRESSION' => 'none', 'HBASE_HOME' => node[:hbase][:location]})
 end
 
-directory node[:opentsdb][:cachedir]
+directory node[:opentsdb][:cachedir] do
   action :create
 end
 
