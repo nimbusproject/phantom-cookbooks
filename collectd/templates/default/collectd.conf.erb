@@ -21,3 +21,8 @@ ReadThreads <%= @node[:collectd][:read_threads] %>
 
 Include "<%= @node[:collectd][:plugin_conf_dir] %>/*.conf"
 Include "/etc/collectd/thresholds.conf"
+
+<Plugin "df">
+  MountPoint "/"
+  ReportReserved true
+</Plugin>
