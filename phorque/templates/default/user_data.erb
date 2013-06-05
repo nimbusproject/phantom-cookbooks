@@ -1,0 +1,11 @@
+<% require 'json' %>
+{
+  "torque": {
+    "server_name": <%= @server_name.to_json %>,
+    "ssh_public_key": <%= File.read(@ssh_public_key).to_json %>,
+    "ssh_private_key": <%= File.read(@ssh_private_key).to_json %>
+  },
+  "run_list": [
+    "recipe[torque::worker]"
+  ]
+}

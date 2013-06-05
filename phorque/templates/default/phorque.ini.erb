@@ -1,0 +1,33 @@
+[Phorque]
+
+loop_sleep_secs = 10
+cluster_directory = /usr/local
+queue_name = default
+
+[Policy]
+
+name = OnDemandPlusPlus
+price_per_hour = <%= @price_per_hour %>
+multiplier = 1
+
+<% @clouds.each do |cloud| %>
+[Cloud-<%= cloud[:name] %>]
+
+cloud_uri = <%= cloud[:cloud_uri] %>
+cloud_port = <%= cloud[:cloud_port] %>
+autoscale_uri = <%= cloud[:autoscale_uri] %>
+autoscale_port = <%= cloud[:autoscale_port] %>
+image_id = <%= cloud[:image_id] %>
+price = <%= cloud[:price] %>
+access_id = <%= cloud[:access_id] %>
+secret_key = <%= cloud[:secret_key] %>
+launch_config_name = <%= cloud[:launch_config_name] %>@<%= cloud[:name] %>
+autoscale_group_name = <%= cloud[:autoscale_group_name] %>
+cloud_type = <%= cloud[:cloud_type] %>
+availability_zone = <%= cloud[:availability_zone] %>
+instance_type = <%= cloud[:instance_type] %>
+instance_cores = <%= cloud[:instance_cores] %>
+max_instances = <%= cloud[:max_instances] %>
+charge_time_secs = <%= cloud[:charge_time_secs] %>
+user_data_file = <%= @user_data_file %>
+<% end %>
