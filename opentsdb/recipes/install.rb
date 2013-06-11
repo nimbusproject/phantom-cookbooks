@@ -43,10 +43,7 @@ end
 cron "clear_tsd_cache" do
   action :create
   minute "*/15"
-  command %Q{
-      cd #{node[:opentsdb][:cachedir]} &&
-      find . -name "*" -print0 | xargs -0 rm
-  }
+  command %Q{ cd #{node[:opentsdb][:cachedir]} && find . -name "*" -print0 | xargs -0 rm }
 end
 
 bash "Start TSD" do
