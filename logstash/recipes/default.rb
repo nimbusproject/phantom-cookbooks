@@ -27,7 +27,7 @@ end
 logstash_jar = "logstash-1.1.9-monolithic.jar"
 
 remote_file "/home/#{node[:logstash][:username]}/#{logstash_jar}" do
-  source "http://build.nimbusproject.org:8000/logstash/#{logstash_jar}"
+  source "http://build.nimbusproject.org:8001/logstash/#{logstash_jar}"
   mode "0644"
   owner node[:logstash][:username]
   group node[:logstash][:groupname]
