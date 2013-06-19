@@ -43,6 +43,11 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'tokenapi.backends.TokenBackend'
+)
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -149,6 +154,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django_statsd',
     'phantomweb',
+    'tokenapi',
 )
 
 <% if @logging -%>
