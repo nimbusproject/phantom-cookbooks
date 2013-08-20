@@ -13,6 +13,10 @@ end
 retrieve_method = node[:phantomweb][:retrieve_method]
 src_dir = unpack_dir = "#{Dir.tmpdir}/PhantomWebApp"
 
+execute "Update distributed" do
+  command "easy_install -U distribute"
+end
+
 if retrieve_method == "offline_archive"
   archive_path = "#{Dir.tmpdir}/PhantomWebApp-#{Time.now.to_i}.tar.gz"
 
