@@ -18,7 +18,7 @@ execute "Update distributed" do
 end
 
 # Change ownership of /var/www to www-data
-directory "/var/www"
+directory "/var/www" do
   owner "www-data"
   group "www-data"
   mode "0755"
