@@ -17,6 +17,13 @@ execute "Update distributed" do
   command "easy_install -U distribute"
 end
 
+# Change ownership of /var/www to www-data
+directory "/var/www"
+  owner "www-data"
+  group "www-data"
+  mode "0755"
+end
+
 if retrieve_method == "offline_archive"
   archive_path = "#{Dir.tmpdir}/PhantomWebApp-#{Time.now.to_i}.tar.gz"
 
