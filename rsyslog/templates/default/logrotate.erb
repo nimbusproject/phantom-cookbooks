@@ -1,0 +1,8 @@
+<%= node[:rsyslog][:directory] %>/*/*.log {
+    daily
+    compress
+    rotate 3
+    postrotate
+    service rsyslog reload >/dev/null 2>&1
+    endscript
+}

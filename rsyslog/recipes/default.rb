@@ -11,6 +11,10 @@ template "/etc/rsyslog.d/#{node[:rsyslog][:config_priority]}-#{node[:rsyslog][:n
   source "rsyslog.conf.erb"
 end
 
+template "/etc/logrotate.d/phantom" do
+  source "logrotate.erb"
+end
+
 bash "register with loggly" do
     code <<-EOH
     curl -X POST -u #{node[:rsyslog][:loggly][:username]}:#{node[:rsyslog][:loggly][:password]} http://#{node[:rsyslog][:loggly][:subdomain]}.loggly.com/api/inputs/#{node[:rsyslog][:loggly][:inputid]}/adddevice
