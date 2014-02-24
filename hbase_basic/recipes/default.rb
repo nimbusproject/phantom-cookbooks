@@ -58,8 +58,13 @@ script "Start HBase" do
   interpreter "bash"
   environment ({"JAVA_HOME" => java_home})
   code <<-EOH
-  ./bin/stop-hbase.sh
+  if ps axww | grep "org.apache.hadoop.hbase.master.HMaster start" | grep -v grep; then
+    ./bin/stop-hbase.sh
+    sleep 10
+  fi
   ./bin/start-hbase.sh
+  sleep 10
+  ps axww | grep "org.apache.hadoop.hbase.master.HMaster start" | grep -v grep
   EOH
   cwd "/opt/hbase/"
 end
