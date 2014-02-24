@@ -32,4 +32,5 @@ end
 service "rsyslog" do
   supports :restart => true
   action [:enable, :restart]
+  provider Chef::Provider::Service::Upstart
 end
