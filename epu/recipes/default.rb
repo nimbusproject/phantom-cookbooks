@@ -34,7 +34,7 @@ require 'yaml'
   # Other dependencies
   case node[:platform]
     when "debian","ubuntu"
-      %w{ libevent-dev libncurses5-dev swig }.each do |pkg|
+      %w{ libevent-dev libncurses5-dev libssl-dev swig }.each do |pkg|
         package pkg
       end
     # dependencies expected to be present on other platforms
