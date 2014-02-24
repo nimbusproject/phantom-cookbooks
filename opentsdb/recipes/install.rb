@@ -15,7 +15,7 @@ end
 
 case node[:platform]
 when "debian","ubuntu"
-  %w{ autoconf gnuplot }.each do |pkg|
+  %w{ autoconf build-essential gnuplot }.each do |pkg|
     package pkg
   end
 end
