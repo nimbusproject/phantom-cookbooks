@@ -1,0 +1,15 @@
+<VirtualHost *:80>
+    ServerName phantom.nimbusproject.org
+    WSGIScriptAlias / <%= "#{node[:appdir]}" =%>/phantomweb/wsgi.py
+    WSGIPassAuthorization On
+    Alias /static/ <%= "#{node[:phantomweb][:staticfiles]}" =%>
+
+    <Directory <%= "#{node[:appdir]}" =%>/phantomweb>
+        Require all granted
+    </Directory>
+    <Directory <%= "#{node[:phantomweb][:staticfiles]}" =%>>
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet

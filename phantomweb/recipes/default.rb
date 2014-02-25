@@ -151,13 +151,31 @@ execute "do fixtures" do
     command "python manage.py loaddata #{conf}"
 end
 
-conf = "/etc/apache2/httpd.conf"
-template conf do
+case node[:platform]
+when "debian"
+  conf = "/etc/apache2/httpd.conf"
+  template conf do
     source "httpd.conf.erb"
     owner "root"
     group "root"
     mode 0644
     action :create
+  end
+when "ubuntu"
+  conf = "/etc/apache2/sites-available/phantom.conf"
+  template conf do
+    source "phantom.conf.erb"
+    owner "root"
+    group "root"
+    mode 0644
+    action :create
+  end
+
+  execute "Enable Phantom site" do
+    user "root"
+    group "root"
+    command "a2dissite 000-default && a2ensite phantom"
+  end
 end
 
 execute "remove logs" do
