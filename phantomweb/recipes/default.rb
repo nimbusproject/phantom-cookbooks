@@ -13,8 +13,11 @@ end
 retrieve_method = node[:phantomweb][:retrieve_method]
 src_dir = unpack_dir = "#{Dir.tmpdir}/PhantomWebApp"
 
-execute "Update distributed" do
-  command "easy_install -U distribute"
+case node[:platform]
+when "debian"
+  execute "Update distributed" do
+    command "easy_install -U distribute"
+  end
 end
 
 # Change ownership of /var/www to www-data
@@ -103,15 +106,15 @@ end
 if install_method == "py_venv_offline_setup"
   execute "run install" do
     cwd app_dir
-    command "env >/tmp/env ; pip install -r requirements.txt --no-index --find-links=file://#{unpack_dir}/packages/ --upgrade .#{extras}"
+    command "env >/tmp/env ; pip install --use-wheel --no-index --find-links=file://#{unpack_dir} .#{extras}"
   end
   execute "install-supervisor" do
     cwd app_dir
-    command "pip install --no-index --find-links=file://#{unpack_dir}/packages/ supervisor"
+    command "pip install --use-wheel --no-index --find-links=file://#{unpack_dir} supervisor"
   end
   execute "install-exceptional" do
     cwd app_dir
-    command "pip install --no-index --find-links=file://#{unpack_dir}/packages/ exceptional-python"
+    command "pip install --use-wheel --no-index --find-links=file://#{unpack_dir} exceptional-python"
     not_if { node[:phantomweb][:exceptional_api_key].nil? or node[:phantomweb][:exceptional_api_key] == "" }
   end
 else
