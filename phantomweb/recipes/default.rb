@@ -18,6 +18,10 @@ when "debian"
   execute "Update distributed" do
     command "easy_install -U distribute"
   end
+when "ubuntu"
+  execute "Update setuptools" do
+    command "pip install --upgrade setuptools"
+  end
 end
 
 # Change ownership of /var/www to www-data
