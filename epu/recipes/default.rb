@@ -165,14 +165,14 @@ require 'yaml'
          environment({
            "HOME" => "/home/#{node[app][:username]}"
          })
-        command "env >/tmp/env ; pip install -r ./#{app}/requirements.txt --no-index --find-links=file://`pwd`/packages/ --upgrade ./#{app}"
+        command "env >/tmp/env ; pip install --use-wheel --no-index --find-links=file://`pwd` epu"
       end
       if not extras.nil?
         execute "install extras" do
           cwd src_dir
           user node[app][:username]
           group node[app][:groupname]
-          command "pip install #{app}#{extras}"
+          command "pip install --use-wheel --no-index --find-links=file://`pwd` #{app}#{extras}"
         end
       end
       execute "install-supervisor" do
@@ -182,7 +182,7 @@ require 'yaml'
          environment({
            "HOME" => "/home/#{node[app][:username]}"
          })
-        command "pip install --no-index --find-links=file://`pwd`/packages/ supervisor"
+        command "pip install --use-wheel --no-index --find-links=file://`pwd` supervisor"
       end
     when "py_venv_buildout"
       execute "bootstrap buildout" do
