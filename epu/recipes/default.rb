@@ -158,21 +158,25 @@ require 'yaml'
         command "easy_install --allow-hosts '*.python.org' supervisor"
       end
     when "py_venv_offline_setup"
-      execute "run install" do
-        cwd src_dir
-        user node[app][:username]
-        group node[app][:groupname]
-         environment({
-           "HOME" => "/home/#{node[app][:username]}"
-         })
-        command "env >/tmp/env ; pip install --use-wheel --no-index --find-links=file://`pwd` epu"
-      end
       if not extras.nil?
-        execute "install extras" do
+        execute "run install with extras" do
           cwd src_dir
           user node[app][:username]
           group node[app][:groupname]
+           environment({
+             "HOME" => "/home/#{node[app][:username]}"
+           })
           command "pip install --use-wheel --no-index --find-links=file://`pwd` #{app}#{extras}"
+        end
+      else
+        execute "run install" do
+          cwd src_dir
+          user node[app][:username]
+          group node[app][:groupname]
+           environment({
+             "HOME" => "/home/#{node[app][:username]}"
+           })
+          command "env >/tmp/env ; pip install --use-wheel --no-index --find-links=file://`pwd` epu"
         end
       end
       execute "install-supervisor" do
