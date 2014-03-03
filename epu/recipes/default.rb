@@ -162,6 +162,16 @@ require 'yaml'
         command "easy_install --allow-hosts '*.python.org' supervisor"
       end
     when "py_venv_offline_setup"
+      execute "Update pip and setuptools" do
+        cwd src_dir
+        user node[app][:username]
+        group node[app][:groupname]
+         environment({
+           "HOME" => "/home/#{node[app][:username]}"
+         })
+        command "pip install --upgrade pip && pip install --upgrade setuptools"
+      end
+
       if not extras.nil?
         execute "run install with extras" do
           cwd src_dir
