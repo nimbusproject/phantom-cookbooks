@@ -15,8 +15,8 @@ src_dir = unpack_dir = "#{Dir.tmpdir}/PhantomWebApp"
 
 case node[:platform]
 when "debian"
-  execute "Update distributed" do
-    command "easy_install -U distribute"
+  execute "Update pip and setuptools" do
+    command "/usr/bin//easy_install pip && pip install --upgrade pip && pip install --upgrade setuptools"
   end
 when "ubuntu"
   execute "Update setuptools" do

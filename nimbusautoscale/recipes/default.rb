@@ -74,6 +74,16 @@ end
 install_method = node[:autoscale][:install_method]
 
 if install_method == "py_venv_offline_setup"
+  execute "Update pip and setuptools" do
+    cwd src_dir
+    user node[app][:username]
+    group node[app][:groupname]
+     environment({
+       "HOME" => "/home/#{node[app][:username]}"
+     })
+    command "pip install --upgrade pip && pip install --upgrade setuptools"
+  end
+
   execute "run install" do
     cwd src_dir
     user node[:username]
