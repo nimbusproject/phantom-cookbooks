@@ -190,7 +190,7 @@ require 'yaml'
          environment({
            "HOME" => "/home/#{node[app][:username]}"
          })
-        command "pip install --upgrade --force-reinstall--use-wheel --no-index --find-links=file://`pwd` supervisor"
+        command "pip install --upgrade --force-reinstall --use-wheel --no-index --find-links=file://`pwd` supervisor"
       end
     when "py_venv_buildout"
       execute "bootstrap buildout" do
