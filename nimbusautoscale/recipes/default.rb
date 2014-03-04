@@ -81,7 +81,7 @@ if install_method == "py_venv_offline_setup"
      environment({
        "HOME" => "/home/#{node[:username]}"
      })
-    command "env >/tmp/env ; pip install --use-wheel --no-index --find-links=file://`pwd` ./Phantom"
+    command "env >/tmp/env ; pip install --upgrade --force-reinstall --use-wheel --no-index --find-links=file://`pwd` ./Phantom"
   end
   execute "install-supervisor" do
     cwd src_dir
@@ -90,7 +90,7 @@ if install_method == "py_venv_offline_setup"
      environment({
        "HOME" => "/home/#{node[:username]}"
      })
-    command "pip install --use-wheel --no-index --find-links=file://`pwd` supervisor"
+    command "pip install --upgrade --force-reinstall --use-wheel --no-index --find-links=file://`pwd` supervisor"
   end
 else
   execute "run install" do

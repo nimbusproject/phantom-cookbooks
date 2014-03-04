@@ -110,15 +110,15 @@ end
 if install_method == "py_venv_offline_setup"
   execute "run install" do
     cwd app_dir
-    command "env >/tmp/env ; pip install --use-wheel --no-index --find-links=file://#{unpack_dir} .#{extras}"
+    command "env >/tmp/env ; pip install --upgrade --force-reinstall --use-wheel --no-index --find-links=file://#{unpack_dir} .#{extras}"
   end
   execute "install-supervisor" do
     cwd app_dir
-    command "pip install --use-wheel --no-index --find-links=file://#{unpack_dir} supervisor"
+    command "pip install --upgrade --force-reinstall --use-wheel --no-index --find-links=file://#{unpack_dir} supervisor"
   end
   execute "install-exceptional" do
     cwd app_dir
-    command "pip install --use-wheel --no-index --find-links=file://#{unpack_dir} exceptional-python"
+    command "pip install --upgrade --force-reinstall --use-wheel --no-index --find-links=file://#{unpack_dir} exceptional-python"
     not_if { node[:phantomweb][:exceptional_api_key].nil? or node[:phantomweb][:exceptional_api_key] == "" }
   end
 else

@@ -152,7 +152,7 @@ require 'yaml'
           cwd src_dir
           user node[app][:username]
           group node[app][:groupname]
-          command "pip install #{app}#{extras}"
+          command "pip install --upgrade --force-reinstall #{app}#{extras}"
         end
       end
 
@@ -170,7 +170,7 @@ require 'yaml'
            environment({
              "HOME" => "/home/#{node[app][:username]}"
            })
-          command "pip install --use-wheel --no-index --find-links=file://`pwd` #{app}#{extras}"
+          command "pip install --upgrade --force-reinstall --use-wheel --no-index --find-links=file://`pwd` #{app}#{extras}"
         end
       else
         execute "run install" do
@@ -180,7 +180,7 @@ require 'yaml'
            environment({
              "HOME" => "/home/#{node[app][:username]}"
            })
-          command "env >/tmp/env ; pip install --use-wheel --no-index --find-links=file://`pwd` epu"
+          command "env >/tmp/env ; pip install --upgrade --force-reinstall --use-wheel --no-index --find-links=file://`pwd` epu"
         end
       end
       execute "install-supervisor" do
@@ -190,7 +190,7 @@ require 'yaml'
          environment({
            "HOME" => "/home/#{node[app][:username]}"
          })
-        command "pip install --use-wheel --no-index --find-links=file://`pwd` supervisor"
+        command "pip install --upgrade --force-reinstall--use-wheel --no-index --find-links=file://`pwd` supervisor"
       end
     when "py_venv_buildout"
       execute "bootstrap buildout" do
