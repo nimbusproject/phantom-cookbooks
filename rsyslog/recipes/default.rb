@@ -4,6 +4,8 @@ end
 
 directory node[:rsyslog][:directory] do
   mode "0755"
+  owner node[:rsyslog][:user]
+  group node[:rsyslog][:group]
   action :create
 end
 
