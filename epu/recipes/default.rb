@@ -148,7 +148,7 @@ require 'yaml'
           environment({
              "HOME" => "/home/#{node[app][:username]}"
           })
-          command "pip install -e #{app}#{extras}"
+          command "pip install -e .#{extras}"
         end
       else
         execute "run install" do
