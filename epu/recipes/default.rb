@@ -140,26 +140,29 @@ require 'yaml'
 
     case node[app][:install_config][:install_method]
     when "py_venv_setup"
-      execute "run install" do
-        cwd src_dir
-        user node[app][:username]
-        group node[app][:groupname]
-        command "env >/tmp/env ; python setup.py install"
-      end
-
       if not extras.nil?
-        execute "install extras" do
+        execute "run install with extras" do
           cwd src_dir
           user node[app][:username]
           group node[app][:groupname]
-          command "pip install --upgrade --force-reinstall #{app}#{extras}"
+          environment({
+             "HOME" => "/home/#{node[app][:username]}"
+          })
+          command "pip install -e #{app}#{extras}"
+        end
+      else
+        execute "run install" do
+          cwd src_dir
+          user node[app][:username]
+          group node[app][:groupname]
+          command "env >/tmp/env ; python setup.py install"
         end
       end
 
       execute "install-supervisor" do
         user node[app][:username]
         group node[app][:groupname]
-        command "easy_install --allow-hosts '*.python.org' supervisor"
+        command "pip install supervisor"
       end
     when "py_venv_offline_setup"
       if not extras.nil?
@@ -167,9 +170,9 @@ require 'yaml'
           cwd src_dir
           user node[app][:username]
           group node[app][:groupname]
-           environment({
+          environment({
              "HOME" => "/home/#{node[app][:username]}"
-           })
+          })
           command "pip install --upgrade --force-reinstall --use-wheel --no-index --find-links=file://`pwd` #{app}#{extras}"
         end
       else
