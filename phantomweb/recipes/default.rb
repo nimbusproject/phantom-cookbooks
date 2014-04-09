@@ -20,7 +20,7 @@ when "debian"
   end
 when "ubuntu"
   execute "Update setuptools" do
-    command "pip install --upgrade setuptools"
+    command "easy_install -U setuptools && easy_install -U distribute && easy_install -U pip"
   end
 end
 
@@ -127,6 +127,15 @@ else
       user "root"
       group "root"
       command "python setup.py install"
+  end
+  execute "install-supervisor" do
+    cwd app_dir
+    command "pip install supervisor"
+  end
+  execute "install-exceptional" do
+    cwd app_dir
+    command "pip install git+git://github.com/nimbusproject/exceptional-python.git"
+    not_if { node[:phantomweb][:exceptional_api_key].nil? or node[:phantomweb][:exceptional_api_key] == "" }
   end
 end
 
