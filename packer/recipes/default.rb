@@ -46,6 +46,6 @@ execute "Install Nimbus cloud client" do
   })
   command <<-EOH
   wget http://www.nimbusproject.org/downloads/#{node[:packer][:nimbus_cloud_client]}.tar.gz
-  tar xzf #{node[:packer][:nimbus_cloud_client]}
+  tar xzf #{node[:packer][:nimbus_cloud_client]}.tar.gz
   EOH
 end
