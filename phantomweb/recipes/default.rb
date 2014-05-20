@@ -11,7 +11,7 @@ when "debian", "ubuntu"
 end
 
 retrieve_method = node[:phantomweb][:retrieve_method]
-src_dir = unpack_dir = "#{Dir.tmpdir}/PhantomWebApp"
+unpack_dir = "#{Dir.tmpdir}/PhantomWebApp"
 
 case node[:platform]
 when "debian"

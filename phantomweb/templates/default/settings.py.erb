@@ -30,6 +30,13 @@ EXCEPTIONAL_API_KEY='<%= node[:phantomweb][:exceptional_api_key] =%>'
 OPENTSDB_HOST = '<%= node[:phantomweb][:opentsdb_host] %>'
 OPENTSDB_PORT = '<%= node[:phantomweb][:opentsdb_port] %>'
 
+RABBITMQ_USERNAME = '<%= node[:phantomweb][:rabbit_user] %>'
+RABBITMQ_PASSWORD = '<%= node[:phantomweb][:rabbit_password] %>'
+RABBITMQ_HOSTNAME = '<%= node[:phantomweb][:rabbit_host] %>'
+RABBITMQ_PORT = '<%= node[:phantomweb][:rabbit_port] %>'
+
+NIMBUS_CLOUD_CLIENT_PATH = '/home/<%= node[:username] %>/<%= node[:phantomweb][:nimbus_cloud_client] %>'
+
 LOGIN_REDIRECT_URL='/phantom'
 
 TOKEN_TIMEOUT_DAYS = 365
