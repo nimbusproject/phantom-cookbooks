@@ -1,0 +1,38 @@
+#Cookbook Name: packer
+
+package "bzr golang mercurial" do
+  action :install
+end
+
+execute "Set up source" do
+  user node[:packer][:username]
+  group node[:packer][:groupname]
+  environment({
+     "HOME" => "/home/#{node[:packer][:username]}",
+     "GOPATH" => "/home/#{node[:packer][:username]}/go"
+  })
+  cwd "/home/#{node[:packer][:username]}"
+  command "go get -u github.com/mitchellh/gox"
+end
+
+git "/home/#{node[:packer][:username]}/go/src/github.com/mitchellh/packer" do
+  repository node[:packer][:git_repo]
+  reference node[:packer][:git_branch]
+  action :sync
+  user node[:packer][:username]
+  group node[:packer][:groupname]
+end
+
+execute "Compile packer" do
+  cwd "/home/#{node[:packer][:username]}/go/src/github.com/mitchellh/packer"
+  user node[:packer][:username]
+  group node[:packer][:groupname]
+  environment({
+     "HOME" => "/home/#{node[:packer][:username]}",
+     "GOPATH" => "/home/#{node[:packer][:username]}/go"
+  })
+  command <<-EOH
+  export PATH="$GOPATH/bin:$PATH"
+  make
+  EOH
+end
