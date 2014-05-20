@@ -48,4 +48,5 @@ execute "Install Nimbus cloud client" do
   wget http://www.nimbusproject.org/downloads/#{node[:packer][:nimbus_cloud_client]}.tar.gz
   tar xzf #{node[:packer][:nimbus_cloud_client]}.tar.gz
   EOH
+  not_if { File.exist?("/home/#{node[:packer][:username]}/#{node[:packer][:nimbus_cloud_client]}") }
 end
