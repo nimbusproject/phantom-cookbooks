@@ -147,7 +147,7 @@ require 'yaml'
           environment({
              "HOME" => "/home/#{node[app][:username]}"
           })
-          command "pip install -r requirements.txt --allow-external dashi -e .#{extras}"
+          command "pip install -r requirements.txt --allow-external dashi --allow-unverified dashi -e .#{extras}"
         end
       else
         execute "run install" do
