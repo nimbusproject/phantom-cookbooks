@@ -36,3 +36,16 @@ execute "Compile packer" do
   make
   EOH
 end
+
+execute "Install Nimbus cloud client" do
+  cwd "/home/#{node[:packer][:username]}"
+  user node[:packer][:username]
+  group node[:packer][:groupname]
+  environment({
+    "HOME" => "/home/#{node[:packer][:username]}"
+  })
+  command <<-EOH
+  wget http://www.nimbusproject.org/downloads/#{node[:packer][:nimbus_cloud_client]}".tar.gz
+  tar xzf #{node[:packer][:nimbus_cloud_client]}"
+  EOH
+end
