@@ -6,7 +6,6 @@
 #
 
 require 'tmpdir'
-require 'uuidtools'
 require 'yaml'
 
 [:pyon, :epu, :epuagent, :eeagent].each do |app|
