@@ -207,3 +207,10 @@ execute "restart apache2" do
     group "root"
     command "/etc/init.d/apache2 restart"
 end
+
+execute "Run Celery" do
+  cwd app_dir
+  user "root"
+  group "root"
+  command "nohup celery -A phantomweb worker -l info &> #{logdir}/celery.log"
+end
