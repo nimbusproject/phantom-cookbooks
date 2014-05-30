@@ -35,7 +35,7 @@ RABBITMQ_PASSWORD = '<%= node[:phantomweb][:rabbit_password] %>'
 RABBITMQ_HOSTNAME = '<%= node[:phantomweb][:rabbit_host] %>'
 RABBITMQ_PORT = '<%= node[:phantomweb][:rabbit_port] %>'
 
-NIMBUS_CLOUD_CLIENT_PATH = '<%= node[:phantomweb][:nimbus_cloud_client] %>'
+NIMBUS_CLOUD_CLIENT_PATH = '/home/<%= node[:username] %>/<%= node[:phantomweb][:nimbus_cloud_client] %>'
 
 LOGIN_REDIRECT_URL='/phantom'
 
