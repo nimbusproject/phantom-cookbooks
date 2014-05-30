@@ -21,7 +21,7 @@ when "debian","ubuntu"
     echo "sun-java6-jre shared/accepted-sun-dlj-v1-1 select true" | debconf-set-selections
     EOH
   end
-  package "default-jre-headless"
+  package "openjdk-6-jre-headless"
 end
 
 logstash_jar = "logstash-1.1.9-monolithic.jar"

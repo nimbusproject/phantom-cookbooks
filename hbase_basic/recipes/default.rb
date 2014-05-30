@@ -22,11 +22,11 @@ when "debian"
 when "ubuntu"
   include_recipe "apt"
 
-  %w{ ant sqlite3 openjdk-7-jdk uuid-runtime }.each do |pkg|
+  %w{ ant sqlite3 openjdk-6-jdk uuid-runtime }.each do |pkg|
     package pkg
   end
 
-  java_home = "/usr/lib/jvm/java-7-openjdk-amd64/jre"
+  java_home = "/usr/lib/jvm/java-6-openjdk-amd64/jre"
 
 when "redhat","centos"
   %w{ java-1.6.0-openjdk ant sqlite }.each do |pkg|
