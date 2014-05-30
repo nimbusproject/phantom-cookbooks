@@ -210,7 +210,7 @@ end
 
 execute "Run Celery" do
   cwd app_dir
-  user "root"
-  group "root"
+  user "www-data"
+  group "www-data"
   command "nohup celery -A phantomweb worker -l info &> #{logdir}/celery.log"
 end
