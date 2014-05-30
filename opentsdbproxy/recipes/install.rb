@@ -104,6 +104,15 @@ if install_method == "py_venv_offline_setup"
     command "pip install --no-index --find-links=file://`pwd`/packages/ supervisor"
   end
 else
+  execute "install-celery" do
+    cwd app_dir
+    user node[:opentsdbproxy][:username]
+    group node[:opentsdbproxy][:groupname]
+     environment({
+       "HOME" => "/home/#{node[:username]}"
+     })
+    command "pip install celery"
+  end
   execute "install-supervisor" do
     cwd app_dir
     user node[:opentsdbproxy][:username]

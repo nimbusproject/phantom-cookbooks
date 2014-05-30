@@ -11,7 +11,7 @@ when "debian", "ubuntu"
 end
 
 retrieve_method = node[:phantomweb][:retrieve_method]
-src_dir = unpack_dir = "#{Dir.tmpdir}/PhantomWebApp"
+unpack_dir = "#{Dir.tmpdir}/PhantomWebApp"
 
 case node[:platform]
 when "debian"
@@ -206,11 +206,4 @@ execute "restart apache2" do
     user "root"
     group "root"
     command "/etc/init.d/apache2 restart"
-end
-
-execute "Run Celery" do
-  cwd app_dir
-  user "www-data"
-  group "www-data"
-  command "nohup celery -A phantomweb worker -l info &> #{logdir}/celery.log"
 end
