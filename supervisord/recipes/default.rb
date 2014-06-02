@@ -62,9 +62,9 @@ bash "start-supervisor" do
   })
   code <<-EOH
   if [ -e #{sup_sock} ]; then
-    supervisorctl -c #{sup_conf} restart all
+    #{node[:supervisord][:command_prefix]} supervisorctl -c #{sup_conf} restart all
   else
-    supervisord -c #{sup_conf}
+    #{node[:supervisord][:command_prefix]} supervisord -c #{sup_conf}
   fi
   EOH
 end
