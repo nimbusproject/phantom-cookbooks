@@ -23,6 +23,11 @@ git "/home/#{node[:packer][:username]}/go/src/github.com/mitchellh/packer" do
   group node[:packer][:groupname]
 end
 
+cookbook_file "servers.go" do
+  path "/home/#{node[:packer][:username]}/go/src/github.com/rackspace/gophercloud/servers.go"
+  action :create
+end
+
 execute "Compile packer" do
   cwd "/home/#{node[:packer][:username]}/go/src/github.com/mitchellh/packer"
   user node[:packer][:username]
