@@ -23,6 +23,20 @@ git "/home/#{node[:packer][:username]}/go/src/github.com/mitchellh/packer" do
   group node[:packer][:groupname]
 end
 
+execute "Fetch dependencies" do
+  cwd "/home/#{node[:packer][:username]}/go/src/github.com/mitchellh/packer"
+  user node[:packer][:username]
+  group node[:packer][:groupname]
+  environment({
+     "HOME" => "/home/#{node[:packer][:username]}",
+     "GOPATH" => "/home/#{node[:packer][:username]}/go"
+  })
+  command <<-EOH
+  export PATH="$GOPATH/bin:$PATH"
+  make deps
+  EOH
+end
+
 cookbook_file "servers.go" do
   path "/home/#{node[:packer][:username]}/go/src/github.com/rackspace/gophercloud/servers.go"
   action :create
