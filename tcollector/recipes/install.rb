@@ -19,6 +19,16 @@ bash "Start tcollector" do
     kill `cat /var/run/tcollector.pid`
     sleep 10
   fi
-  #{tcollector_path}/tcollector.py #{use_ssl} --host #{node[:tcollector][:tsd_host]} --port #{node[:tcollector][:tsd_port]} --logfile #{node[:tcollector][:logfile]} -D
+  cp #{tcollector_path}/startstop /etc/init.d/tcollector
+  service tcollector start
   EOH
+end
+
+bash "Set tcollector to start on boot" do
+  case node[:platform]
+  when "debian", "ubuntu"
+    code "update-rc.d tcollector defaults"
+  when "redhat", "centos", "fedora"
+    code "/sbin/chkconfig --add tcollector"
+  end
 end
