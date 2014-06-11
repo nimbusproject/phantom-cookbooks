@@ -4,6 +4,7 @@ git "Get tcollector source" do
   repository node[:tcollector][:git_repository]
   revision "master"
   destination tcollector_path
+  enable_submodules true
   action :sync
 end
 
