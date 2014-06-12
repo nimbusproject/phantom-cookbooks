@@ -14,13 +14,19 @@ else
     use_ssl = ""
 end
 
+if node[:tcollector][:use_openstack_script]
+  script_suffix = ".openstack"
+else
+  script_suffix = ""
+end
+
 bash "Start tcollector" do
   code <<-EOH
   if [ -f /var/run/tcollector.pid ]; then
     kill `cat /var/run/tcollector.pid`
     sleep 10
   fi
-  cp #{tcollector_path}/startstop /etc/init.d/tcollector
+  cp #{tcollector_path}/startstop#{script_suffix} /etc/init.d/tcollector
   service tcollector start
   EOH
 end
