@@ -5,7 +5,7 @@ include_recipe "python"
 
 case node[:platform]
 when "debian", "ubuntu"
-  %w{ apache2 libapache2-mod-wsgi }.each do |pkg|
+  %w{ apache2 libapache2-mod-wsgi libmysqlclient-dev }.each do |pkg|
       package pkg
   end
 end
