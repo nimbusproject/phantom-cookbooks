@@ -9,7 +9,8 @@
     email: "<%= @librato_email %>",
     token: "<%= @librato_token %>",
     source: "<%= @hostname %>",
-    skipInternalMetrics: true
+    skipInternalMetrics: true,
+    countersAsGauges: false
   },
   backends: ["statsd-librato-backend"]
 }
